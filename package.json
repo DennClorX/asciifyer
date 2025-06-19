@@ -1,0 +1,11 @@
+{
+  "name": "asciifyer",
+  "version": "1.0.5",
+  "description": "Asciifyer is an npm package that allows you to convert regular text into stylized ASCII art using various fonts. It supports multiple font styles and is easy to integrate into your Node.js projects.",
+  "main": "index.js",
+  "author": "ikerbesp",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.10.0"
+  }
+}
