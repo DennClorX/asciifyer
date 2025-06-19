@@ -18,24 +18,27 @@ export let fonts = {
 
 async function downloadFont(font) {
     const res = await axios.get(`https://raw.githubusercontent.com/DennClorX/asciifyer/refs/heads/main/Fonts/${font}.flf`, { responseType: "arraybuffer" });
-    await fs.promises.writeFile(`./Fonts/${font}.flf`, res.data);
+    if (!fs.existsSync(__dirname + `/Fonts/`)){
+    fs.mkdirSync(__dirname + `/Fonts/`);
+   }
+    await fs.promises.writeFile(__dirname + `/Fonts/${font}.flf`, res.data);
 }
 
 export async function clearFonts() {
-    const files = await fs.promises.readdir('./Fonts');
+    const files = await fs.promises.readdir(__dirname + `/Fonts`);
     for (const file of files) {
         if (file.endsWith('.flf')) {
-            await fs.promises.unlink(`./Fonts/${file}`);
+            await fs.promises.unlink(__dirname + `/Fonts/${file}`);
         }
     }
 }
 export async function stringToAscii(text, font) {
     let flfContent
     try {
-        flfContent = fs.readFileSync(`./Fonts/${font}.flf`, { encoding: 'utf8' });
+        flfContent = fs.readFileSync(__dirname + `/Fonts/${font}.flf`, { encoding: 'utf8' });
     } catch {
         await downloadFont(font);
-        flfContent = fs.readFileSync(`./Fonts/${font}.flf`, { encoding: 'utf8' });
+        flfContent = fs.readFileSync(__dirname + `/Fonts/${font}.flf`, { encoding: 'utf8' });
 
     }
 
